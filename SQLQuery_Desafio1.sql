@@ -7,11 +7,12 @@ from Filmes
 --2 - Buscar o nome e ano dos filmes, ordenados por ordem crescente pelo ano
 select 
 	Nome,
-	Ano 
+	Ano,
+	Duracao -- conforme imagem
 from Filmes
 order by Ano
 
---3 - Buscar pelo filme de volta para o futuro, trazendo o nome, ano e a duração
+--3 - Buscar pelo filme de volta para o futuro, trazendo o nome, ano e a duraÃ§Ã£o
 select 
 	Nome,
 	Ano,
@@ -19,7 +20,7 @@ select
 from Filmes
 where Nome = 'De Volta para o Futuro';
 	
---4 - Buscar os filmes lançados em 1997
+--4 - Buscar os filmes lanÃ§ados em 1997
 select 
 	Nome,
 	Ano,
@@ -27,7 +28,7 @@ select
 from Filmes
 where Ano = '1997';
 
---5 - Buscar os filmes lançados APÓS o ano 2000
+--5 - Buscar os filmes lanÃ§ados APÃ“S o ano 2000
 select 
 	Nome,
 	Ano,
@@ -44,45 +45,48 @@ from Filmes
 where Duracao > '100' and Duracao < '150'
 order by Duracao;
 
---7 - Buscar a quantidade de filmes lançadas no ano, agrupando por ano, ordenando pela duracao em ordem decrescente
+--7 - Buscar a quantidade de filmes lanÃ§adas no ano, agrupando por ano, ordenando pela duracao em ordem decrescente
 select 
 	Ano,
 	COUNT(*) as Quantidade
 from Filmes
 Group by Ano
-order by max(Duracao) desc; -- Solicitado na pergunta
---order by Quantidade desc; -- Representado na figura
+--order by max(Duracao) desc; -- Solicitado na pergunta
+order by Quantidade desc; -- Representado na figura
 
---8 - Buscar os Atores do gênero masculino, retornando o PrimeiroNome, UltimoNome
+--8 - Buscar os Atores do gÃªnero masculino, retornando o PrimeiroNome, UltimoNome
 select 
 	PrimeiroNome,
-	UltimoNome
+	UltimoNome,
+	Genero -- Conforme imagem
 from Atores
 where Genero = 'M';
 
---9 - Buscar os Atores do gênero feminino, retornando o PrimeiroNome, UltimoNome, e ordenando pelo PrimeiroNome
+--9 - Buscar os Atores do gÃªnero feminino, retornando o PrimeiroNome, UltimoNome, e ordenando pelo PrimeiroNome
 select 
 	PrimeiroNome,
-	UltimoNome
+	UltimoNome,
+	Genero -- Conforme imagem
 from Atores
 where Genero = 'F'
 order by PrimeiroNome;
 
---10 - Buscar o nome do filme e o gênero
+--10 - Buscar o nome do filme e o gÃªnero
 select 
 	f.Nome,
 	g.Genero
-from Filmes f
-join Generos g on f.Id = g.Id;
+from FilmesGenero fg
+join Filmes f on f.id = fg.IdFilme
+join Generos g on g.Id = fg.IdGenero;
 
---11 - Buscar o nome do filme e o gênero do tipo "Mistério"
+--11 - Buscar o nome do filme e o gÃªnero do tipo "MistÃ©rio"
 select 
 	f.Nome,
 	g.Genero
 from FilmesGenero fg
 join Filmes f on f.id = fg.IdFilme
 join Generos g on g.Id = fg.IdGenero
-where g.Genero = 'Mistério';
+where g.Genero = 'MistÃ©rio';
 
 --12 - Buscar o nome do filme e os atores, trazendo o PrimeiroNome, UltimoNome e seu Papel
 select 
